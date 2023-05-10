@@ -1,1 +1,7 @@
-<p>home works!</p>
+<!-- [loggedIn]="loginStatus"  *ngIf="loginStatus"-->
+<app-login ></app-login>
+
+
+<div id="products" *ngIf="!loginStatus">
+    <app-display-products></app-display-products>
+</div>
