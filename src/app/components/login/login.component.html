@@ -11,7 +11,11 @@
         <input matInput type="password" [(ngModel)]="user.password" name="password">
     </mat-form-field>
 
-    <button mat-button>Submit</button>
+    <div>
+        <button mat-raised-button type="submit">Submit</button>
+        <button mat-raised-button (click)="openRegister()">Register</button>
+    </div>
+    
 
 </form>
 <!--<div>

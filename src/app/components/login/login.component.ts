@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/user';
 import { EcommerceService } from 'src/app/service/ecommerce-service.service';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -9,17 +11,29 @@ import { EcommerceService } from 'src/app/service/ecommerce-service.service';
 })
 export class LoginComponent {
   @Input()
-  loggedIn = true;
+  loggedIn = false;
   
   user : User = {
-    username : "",
-    password : ""
+    username : "flast23",
+    password : "password"
   };
 
-  constructor(private eService : EcommerceService){}
+  @Output()
+  loginEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  constructor(private eService : EcommerceService, public dialog: MatDialog){}
 
   login(){
+    //this.loggedIn = true;
+    
+    this.eService.login(this.user).subscribe(user => {
+      this.loggedIn = (user != null)
+      this.loginEvent.emit(this.loggedIn);
+    });
+  }
 
-    this.eService.login(this.user).subscribe(user => this.loggedIn = (user != null));
+  openRegister(){
+    /*const dialogRef =*/ this.dialog.open(RegisterComponent);
+    //dialogRef.afterClosed().subscribe(result => console.log('Register Successful'));
   }
 }

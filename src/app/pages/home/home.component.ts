@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  loginStatus : boolean = true;
+  loginStatus : boolean = false;
+
+  setLoginStatus(value:any){
+    this.loginStatus = value;
+    
+  }
 }

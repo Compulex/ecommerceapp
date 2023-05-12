@@ -10,11 +10,11 @@ import { EcommerceService } from 'src/app/service/ecommerce-service.service';
 export class RegisterComponent {
 
   user : User = {
-    firstName : "",
-    lastName : "",
-    email : "",
-    username : "",
-    password : ""
+    firstName : "first",
+    lastName : "last",
+    email : "flast23@aol.com",
+    username : "flast23",
+    password : "password"
   }
 
   constructor(private eService : EcommerceService){}

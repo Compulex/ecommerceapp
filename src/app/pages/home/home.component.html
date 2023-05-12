@@ -1,7 +1,7 @@
 <!-- [loggedIn]="loginStatus"  *ngIf="loginStatus"-->
-<app-login ></app-login>
+<app-login (loginEvent)="setLoginStatus($event)" *ngIf="!loginStatus"></app-login>
 
 
-<div id="products" *ngIf="!loginStatus">
+<div id="products" *ngIf="loginStatus">
     <app-display-products></app-display-products>
 </div>
