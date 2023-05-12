@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/models/user';
 import { EcommerceService } from 'src/app/service/ecommerce-service.service';
 
@@ -16,11 +17,16 @@ export class RegisterComponent {
     username : "flast23",
     password : "password"
   }
+  success = false;
 
-  constructor(private eService : EcommerceService){}
+  constructor(public dialogRef: MatDialogRef<RegisterComponent>, private eService : EcommerceService){}
 
   register(){
-    this.eService.register(this.user).subscribe(user => console.log(user));
+    this.eService.register(this.user).subscribe(user => {
+      this.success = user != null;
+      console.log(user)
+      this.dialogRef.close();
+    });
   }
 
 }

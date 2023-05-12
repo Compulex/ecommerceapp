@@ -8,26 +8,36 @@ import { Product } from '../models/product';
   providedIn: 'root'
 })
 export class EcommerceService {
+  globalUser: User;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.globalUser = {};
+  }
 
   getHeader() : HttpHeaders{
     let header : HttpHeaders = new HttpHeaders();
     header.append("accept", "text/json");
     header.append("Access-Control-Allow-Origin", "*");
-    header.append("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
     return header;
+  }
+
+  setGUser(val: User){
+    this.globalUser = val;
+  }
+
+  getGUser() : User{
+    return this.globalUser;
   }
 
   /* ********************* User endpoints *************************/
 
 
   register(user : User) : Observable<User>{
-    return this.http.post<User>("http://localhost:4200/register", user, {headers:this.getHeader()});
+    return this.http.post<User>("http://localhost:9000/register", user, {headers:this.getHeader()});
   }
 
   login(user : User) : Observable<User>{
-    return this.http.post<User>("http://localhost:4200/login", user, {headers:this.getHeader()});
+    return this.http.post<User>("http://localhost:9000/login", user, {headers:this.getHeader()});
   }
 
   getUserById(id : number) : Observable<User>{
@@ -52,7 +62,7 @@ export class EcommerceService {
 
 
       /* ********************* Product endpoints *************************/
-  
+
   addProduct(product : Product) : Observable<Product>{
     return this.http.post<Product>("http://localhost:9000/product", product, {headers:this.getHeader()});
   }

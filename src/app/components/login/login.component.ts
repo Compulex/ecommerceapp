@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/user';
 import { EcommerceService } from 'src/app/service/ecommerce-service.service';
 import { RegisterComponent } from '../register/register.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,9 @@ export class LoginComponent {
     //this.loggedIn = true;
     
     this.eService.login(this.user).subscribe(user => {
-      this.loggedIn = (user != null)
+      this.loggedIn = (user != null);
+      //set global variable for user
+      this.eService.setGUser(user);
       this.loginEvent.emit(this.loggedIn);
     });
   }

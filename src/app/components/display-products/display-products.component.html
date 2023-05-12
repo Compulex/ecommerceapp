@@ -1,9 +1,10 @@
 <p>display-products works!</p>
 
 <div *ngIf="products.length > 0">
-    <div *ngFor="let product of products">
+    <div class="products" *ngFor="let product of products" style="border: solid 1px;">
         <p>{{product.name}}</p>
         <p>{{product.description}}</p>
-        <p>{{product.price}}</p>
+        <p>{{product.price | currency}}</p>
+        <button mat-raised-button (click)="addToCart(product)">Add To Cart</button>
     </div>
 </div>
