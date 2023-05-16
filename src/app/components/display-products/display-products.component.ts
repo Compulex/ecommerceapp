@@ -21,12 +21,11 @@ export class DisplayProductsComponent {
   }
 
 
-  //TODO: check if in cart, fix cart component, work on removing products from cart
   addToCart(product: Product){
     //adds product to list of products(cart)
     this.user.products?.push(product);
     //adds the price to the balance
-    this.user.balance = product.price;
+    this.user.balance! += product.price!;
 
     console.log("Cart: " + JSON.stringify(this.user.products));
 

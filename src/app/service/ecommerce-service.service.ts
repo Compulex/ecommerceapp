@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { User } from '../models/user';
 import { Product } from '../models/product';
+import { Order } from '../models/order';
+import { OrderedProduct } from '../models/orderedProduct';
 
 @Injectable({
   providedIn: 'root'
@@ -56,10 +58,6 @@ export class EcommerceService {
     this.http.delete(`http://localhost:9000/user/${id}`, {headers:this.getHeader()});
   }
 
-  /*checkout(id : number) : Observable<User>{
-    return this.http.patch(`http://localhost:9000/user/${id}`, {headers:this.getHeader()});
-  }*/
-
 
       /* ********************* Product endpoints *************************/
 
@@ -81,5 +79,66 @@ export class EcommerceService {
 
   deleteProduct(id : number){
     this.http.delete(`http://localhost:9000/product/${id}`, {headers:this.getHeader()});
+  }
+
+
+  /* ********************* Order endpoints *************************/
+
+  addOrder(uid : number, order : Order) : Observable<Order>{
+    return this.http.post<Order>(`http://localhost:9000/user/${uid}/checkout`, order, {headers:this.getHeader()}).pipe(
+      tap({
+        next: (response) =>{
+          this.getUserCart(uid).subscribe((cart : Product[]) => {
+            cart.forEach((prod) =>{
+              
+              let orderedProduct : OrderedProduct = {
+                quantity : 1,
+                order : response,
+                product : prod
+              }
+              //console.log(JSON.stringify(orderedProduct));
+              this.addOrderedProduct(prod.id!, response.id!, orderedProduct).subscribe(op => console.log(JSON.stringify(op)));
+            })
+          })
+        },
+        error: (error) =>{
+          console.log(error);
+        },
+        complete: () => {
+          console.log("Add Ordered Product: Complete");
+        }
+      })
+    );
+  }
+
+  getOrderById(id : number) : Observable<Order>{
+    return this.http.get<Order>(`http://localhost:9000/order/${id}`, {headers:this.getHeader()});
+  }
+
+  getOrdersByUserId(uid : number) : Observable<Order[]>{
+    return this.http.get<Order[]>(`http://localhost:9000/user/${uid}/orders`, {headers:this.getHeader()});
+  }
+
+  updateOrder(id : number, order : Order) : Observable<Order>{
+    return this.http.put<Order>(`http://localhost:9000/order/${id}`, order, {headers:this.getHeader()});
+  }
+
+  deleteOrder(id : number) : void{
+    this.http.delete(`http://localhost:9000/order/${id}`, {headers:this.getHeader()});
+  }
+
+
+  /* ********************* Ordered_Product endpoints *************************/
+
+  addOrderedProduct(pid : number, oid : number, orderedProduct : OrderedProduct) : Observable<OrderedProduct>{
+    return this.http.post<OrderedProduct>(`http://localhost:9000/product/${pid}/order/${oid}/orderedProduct`, orderedProduct, {headers:this.getHeader()});
+  }
+
+  getOPByOrder(oid : number) : Observable<OrderedProduct[]>{
+    return this.http.get<OrderedProduct[]>(`http://localhost:9000/order/${oid}/orderedProducts`, {headers:this.getHeader()});
+  }
+
+  deleteOrderedProduct(id : number) : void{
+    this.http.delete(`http://localhost:9000/orderedProduct/${id}`, {headers:this.getHeader()})
   }
 }

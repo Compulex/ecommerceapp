@@ -1,11 +1,10 @@
 import { OrderedProduct } from "./orderedProduct";
 import { User } from "./user";
 
-export interface Product{
+export interface Order{
     id?: number,
-    name?: string,
-    description?: string,
-    price?: number,
+    date?: Date,
+    orderTotal?: number,
     user?: User,
     orderedProducts?: OrderedProduct[]
 }

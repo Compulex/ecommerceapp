@@ -1,1 +1,14 @@
-<p>checkout works!</p>
+<div *ngIf="cart.length > 0">
+    <div *ngFor="let item of cart" style="border: solid 1px; margin: 5px;">
+        <p>{{item.name}}</p>
+        <p>{{item.description}}</p>
+        <p>{{item.price | currency}}</p>
+        <!--<button mat-raised-button (click)="removeFromCart(item)">Remove From Cart</button>-->
+    </div>
+    
+    <div>
+        <h3>{{total | currency}}</h3>
+        <button mat-raised-button (click)="placeOrder()">Place Order</button>
+    </div>
+</div>
+

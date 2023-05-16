@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/models/user';
 import { EcommerceService } from 'src/app/service/ecommerce-service.service';
 import { RegisterComponent } from '../register/register.component';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
