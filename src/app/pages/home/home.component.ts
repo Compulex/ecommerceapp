@@ -12,12 +12,11 @@ export class HomeComponent {
 
   constructor(private eService : EcommerceService){}
 
-  ngOnInit(){
-    this.loginStatus = this.eService.getGUser() != null;
-  }
+  /*ngOnInit(){
+    this.loginStatus = ;
+  }*/
 
   setLoginStatus(value:any){
     this.loginStatus = value;
-    
   }
 }
