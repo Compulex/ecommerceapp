@@ -35,7 +35,6 @@ export class LoginComponent {
   }
 
   openRegister(){
-    /*const dialogRef =*/ this.dialog.open(RegisterComponent);
-    //dialogRef.afterClosed().subscribe(result => console.log('Register Successful'));
+    this.dialog.open(RegisterComponent);
   }
 }

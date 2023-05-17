@@ -6,6 +6,5 @@ export interface Product{
     name?: string,
     description?: string,
     price?: number,
-    user?: User,
-    orderedProducts?: OrderedProduct[]
+    user?: User
 }

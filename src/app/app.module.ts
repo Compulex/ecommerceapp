@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DisplayProductsComponent } from './components/display-products/display-products.component';
 import { CartComponent } from './components/cart/cart.component';
+import { OrderedProductsComponent } from './ordered-products/ordered-products.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -28,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegisterComponent,
     DisplayProductsComponent,
-    CartComponent
+    CartComponent,
+    OrderedProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatInputModule,
     MatDialogModule,
+    MatSnackBarModule,
     HttpClientModule
   ],
   providers: [],

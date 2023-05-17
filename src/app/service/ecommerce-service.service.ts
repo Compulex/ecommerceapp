@@ -10,11 +10,9 @@ import { OrderedProduct } from '../models/orderedProduct';
   providedIn: 'root'
 })
 export class EcommerceService {
-  globalUser: User;
+  globalUser: User = {};
 
-  constructor(private http: HttpClient) {
-    this.globalUser = {};
-  }
+  constructor(private http: HttpClient) {}
 
   getHeader() : HttpHeaders{
     let header : HttpHeaders = new HttpHeaders();
@@ -39,7 +37,13 @@ export class EcommerceService {
   }
 
   login(user : User) : Observable<User>{
-    return this.http.post<User>("http://localhost:9000/login", user, {headers:this.getHeader()});
+    return this.http.post<User>("http://localhost:9000/login", user, {headers:this.getHeader()}).pipe(
+      tap({
+        next: (response) => {
+          this.globalUser = response;
+        }
+      })
+    );
   }
 
   getUserById(id : number) : Observable<User>{
@@ -85,30 +89,7 @@ export class EcommerceService {
   /* ********************* Order endpoints *************************/
 
   addOrder(uid : number, order : Order) : Observable<Order>{
-    return this.http.post<Order>(`http://localhost:9000/user/${uid}/checkout`, order, {headers:this.getHeader()}).pipe(
-      tap({
-        next: (response) =>{
-          this.getUserCart(uid).subscribe((cart : Product[]) => {
-            cart.forEach((prod) =>{
-              
-              let orderedProduct : OrderedProduct = {
-                quantity : 1,
-                order : response,
-                product : prod
-              }
-              //console.log(JSON.stringify(orderedProduct));
-              this.addOrderedProduct(prod.id!, response.id!, orderedProduct).subscribe(op => console.log(JSON.stringify(op)));
-            })
-          })
-        },
-        error: (error) =>{
-          console.log(error);
-        },
-        complete: () => {
-          console.log("Add Ordered Product: Complete");
-        }
-      })
-    );
+    return this.http.post<Order>(`http://localhost:9000/user/${uid}/checkout`, order, {headers:this.getHeader()});
   }
 
   getOrderById(id : number) : Observable<Order>{

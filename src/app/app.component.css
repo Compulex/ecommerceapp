@@ -2,9 +2,24 @@ ul{
     list-style-type: none;
     margin: 10px;
     padding: 10px;
+    /*background-color: rgba(124, 92, 180, 0.945);*/
 }
 li{
     display: inline;
     padding: 5px;
     margin: 5px;
+}
+#logout{
+    float: right;
+}
+
+a:link{
+    color:blueviolet;
+}
+a:hover{
+    color: rgb(157, 72, 172);
+}
+
+a:active{
+    color:rgb(158, 94, 222);
 }

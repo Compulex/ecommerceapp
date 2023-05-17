@@ -1,0 +1,12 @@
+.orders, .products{
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+.orders{
+    border: solid 1px;
+}
+.products{
+    border: solid 1px;
+    border-radius: 50%;
+}

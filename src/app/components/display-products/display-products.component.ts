@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from 'src/app/models/product';
 import { User } from 'src/app/models/user';
 import { EcommerceService } from 'src/app/service/ecommerce-service.service';
@@ -12,7 +13,7 @@ export class DisplayProductsComponent {
   user : User = {};
   products : Product[] = [];
 
-  constructor(private eService : EcommerceService){}
+  constructor(private eService : EcommerceService, private snackbar : MatSnackBar){}
 
   ngOnInit(): void{
     this.user = this.eService.getGUser();
@@ -29,6 +30,10 @@ export class DisplayProductsComponent {
 
     console.log("Cart: " + JSON.stringify(this.user.products));
 
-    this.eService.updateUser(this.user.id!!, this.user).subscribe(user => console.log("User updated: " + JSON.stringify(user)));
+    this.eService.updateUser(this.user.id!, this.user).subscribe(user => console.log("User updated: " + JSON.stringify(user)));
+
+    this.snackbar.open("Added To Cart", "", {
+      duration: 2000
+    });
   }
 }

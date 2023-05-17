@@ -1,5 +1,5 @@
 <!--  -->
-<form role="form" (ngSubmit)="login()">
+<form id="loginForm" role="form" (ngSubmit)="login()">
 
     <mat-form-field>
         <mat-label>Username</mat-label>
@@ -16,6 +16,6 @@
     </div>
     
 </form>
-<div>
-    <button mat-raised-button (click)="openRegister()">Register</button>
+<div id="registerDiv">
+    <button id="registerBtn" mat-raised-button (click)="openRegister()">Register</button>
 </div>

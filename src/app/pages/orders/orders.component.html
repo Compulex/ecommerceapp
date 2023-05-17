@@ -3,13 +3,13 @@
 
 <div *ngIf="orders.length > 0">
     <h3>Your Orders</h3>
-    <div *ngFor="let order of orders" style="border: solid 1px; margin: 5px;">
-        <p>{{order.date | date}}</p>
+    <div class="orders" *ngFor="let order of orders">
+        <p>Date: {{order.date | date}}</p>
         <p><u>Products: </u></p>
-        <div *ngFor="let product of products">
-            <p>{{product.name}}</p>
-            <p>{{product.description}}</p>
+        
+        <div class="products" *ngFor="let product of cart">
+            <app-ordered-products [product]="product" [order]="order"></app-ordered-products>
         </div>
-        <p>{{order.orderTotal | currency}}</p>
+        <p>Subtotal: {{order.orderTotal | currency}}</p>
     </div>
 </div>

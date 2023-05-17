@@ -1,8 +1,12 @@
-<div *ngFor="let item of cart" style="border: solid 1px; margin: 5px;">
+<h2>Your Cart</h2>
+<div id="cart" *ngFor="let item of cart" style="border: solid 1px; margin: 5px;">
     <p>{{item.name}}</p>
     <p>{{item.description}}</p>
     <p>{{item.price | currency}}</p>
     <button mat-raised-button (click)="removeFromCart(item)">Remove From Cart</button>
 </div>
 
-<a routerLink="../checkout"><button mat-raised-button>Proceed To Checkout</button></a>
+<div id="btn">
+    <a routerLink="../checkout"><button id="btn" mat-raised-button>Proceed To Checkout</button></a>
+</div>
+

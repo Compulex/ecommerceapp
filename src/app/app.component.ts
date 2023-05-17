@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EcommerceService } from './service/ecommerce-service.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ecommerceapp';
+
+  constructor(private eService : EcommerceService){}
+  logout(){
+    //this.eService.setGUser(undefined);
+  }
 }

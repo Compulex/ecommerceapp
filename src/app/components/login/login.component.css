@@ -1,0 +1,9 @@
+#loginForm, #registerDiv{
+    text-align: center;
+    
+}
+
+#registerDiv{
+    margin: 5px;
+    padding: 5px;
+}

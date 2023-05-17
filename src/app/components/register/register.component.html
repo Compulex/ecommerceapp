@@ -1,21 +1,34 @@
-<div>
-    <input type="text" name="firstName" [(ngModel)]="user.firstName" placeholder="first name">
-    <input type="text" name="lastName" [(ngModel)]="user.lastName" placeholder="last name">
-</div>
+<form (ngSubmit)="register()" *ngIf="!success">
+    <mat-form-field>
+        <mat-label>First Name:</mat-label>
+        <input matInput type="text" name="firstName" [(ngModel)]="user.firstName" placeholder="first name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Last Name:</mat-label>
+        <input matInput type="text" name="lastName" [(ngModel)]="user.lastName" placeholder="last name">
+    </mat-form-field>
 
-<div>
-    <input type="email" name="email" [(ngModel)]="user.email" placeholder="email">
-</div>
+    <mat-form-field>
+        <mat-label>Phone Number:</mat-label>
+        <input matInput type="tel" name="phone" [(ngModel)]="user.phoneNumber" placeholder="111-222-3333">
+    </mat-form-field>
 
-<div>
-    <input type="text" name="username" [(ngModel)]="user.username" placeholder="username">
-</div>
+    <mat-form-field>
+        <mat-label>Email:</mat-label>
+        <input matInput type="email" name="email" [(ngModel)]="user.email" placeholder="youremail@email.com">
+    </mat-form-field>
 
-<div>
-    <input type="password" name="password" [(ngModel)]="user.password" placeholder="password">
-</div>
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput type="text" name="username" [(ngModel)]="user.username" placeholder="username">
+    </mat-form-field>
 
-<button (click)="register()">Submit</button>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" name="password" [(ngModel)]="user.password" placeholder="password">
+    </mat-form-field>
 
+    <button mat-raised-button type="submit">Submit</button>
 
+</form>
 <p *ngIf="success">Register Completed</p>

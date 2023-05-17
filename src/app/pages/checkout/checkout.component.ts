@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Order } from 'src/app/models/order';
-import { OrderedProduct } from 'src/app/models/orderedProduct';
 import { Product } from 'src/app/models/product';
 import { User } from 'src/app/models/user';
 import { EcommerceService } from 'src/app/service/ecommerce-service.service';
@@ -14,41 +14,30 @@ export class CheckoutComponent {
   user : User = {};
   cart : Product[] = [];
   order : Order = {};
-  orderedProduct : OrderedProduct = {};
-
-  quantity : number = 1;
   date : Date = new Date();
   total : number = 0.0;
 
-  constructor(private eService : EcommerceService){}
+  constructor(private eService : EcommerceService, private snackbar : MatSnackBar){}
 
   ngOnInit() : void{
     this.user = this.eService.getGUser();
     this.total = this.user.balance!;
 
-    this.eService.getUserCart(this.user.id!).subscribe(cart => {
-      this.cart = cart
-      this.cart.forEach((prod) => {
+    this.eService.getUserCart(this.user.id!).subscribe((cart : Product[]) => {
+      cart.forEach((prod) => {
         this.total += prod.price!;
-      })
+      });
+      this.cart = cart;
     });
   }
 
-  removeFromCart(product : Product){
-    //removes product from list of products(cart)
-    let idx = this.user.products!.indexOf(product);
-    let idxx = this.cart.indexOf(product);
-    
-    this.user.products!.splice(idx, 1);
-    this.cart.splice(idxx, 1);
+  /*fromProductToOP(order : Order){
+    let orderedProduct : OrderedProduct = { quantity: 1 };
 
-    //deducts the price from the balance
-    this.user.balance! -= product.price!;
-
-    console.log("Cart: " + JSON.stringify(this.user.products));
-
-    this.eService.updateUser(this.user.id!, this.user).subscribe(user => console.log("User updated: " + JSON.stringify(user)));
-  }
+    this.cart.forEach((prod) => {
+      this.eService.addOrderedProduct(prod.id!, order.id!, orderedProduct).subscribe(op => console.log(JSON.stringify(op)));
+    })
+  }*/
 
   placeOrder(){
     let order : Order = {
@@ -57,9 +46,17 @@ export class CheckoutComponent {
       user : this.user
     };
 
-    //console.log(JSON.stringify(order))
-
+    if(this.user.id != undefined){
+      //console.log(JSON.stringify(order));
+      this.eService.addOrder(this.user.id, order).subscribe();
+      
+    }
     //order added
-    this.eService.addOrder(this.user.id!, order).subscribe(order => console.log(JSON.stringify(order)));
+    this.snackbar.open("Order has been Place", "", {
+      duration: 2000
+    });
+
+    //clear out cart
+    this.cart = [];
   }
 }
