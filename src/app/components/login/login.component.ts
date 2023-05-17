@@ -14,8 +14,8 @@ export class LoginComponent {
   loggedIn = false;
   
   user : User = {
-    username : "flast23",
-    password : "password"
+    username : "",
+    password : ""
   };
 
   @Output()

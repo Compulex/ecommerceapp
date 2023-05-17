@@ -1,14 +1,40 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';
+import { EcommerceService } from 'src/app/service/ecommerce-service.service';
+import { FormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
+import { HttpClientModule } from '@angular/common/http';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
+  let eService: EcommerceService;
+
+  const mockMatDialogRef = jasmine.createSpyObj(['close']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegisterComponent ]
+      imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        HttpClientModule
+      ],
+      declarations: [ RegisterComponent ],
+      providers: [
+        EcommerceService,
+        HttpClientModule,
+        {provide: MatDialogRef, useValue: mockMatDialogRef},
+        {provide: MAT_DIALOG_DATA, useValue: {} }
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
 

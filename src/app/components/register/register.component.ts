@@ -14,12 +14,12 @@ export class RegisterComponent {
   registerForm : FormGroup = new FormGroup({});
 
   user : User = {
-    firstName : "first",
-    lastName : "last",
-    phoneNumber : "718-284-4567",
-    email : "flast23@aol.com",
-    username : "flast23",
-    password : "password"
+    firstName : "",
+    lastName : "",
+    phoneNumber : "",
+    email : "",
+    username : "",
+    password : ""
   }
   success = false;
 
